@@ -1,0 +1,5 @@
+@EndUserText.label: 'Sales Service Definition (Managed)'
+define service Z_SD_DVPA_SALES_M {
+  expose Z_I_DVPA_Sales_Header_M;
+  expose Z_I_DVPA_Sales_Item_M;
+}

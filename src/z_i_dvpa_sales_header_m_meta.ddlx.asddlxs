@@ -1,0 +1,40 @@
+@Metadata.layer: #CORE
+
+@UI: { headerInfo: { typeName: 'Sales Document', typeNamePlural: 'Sales Documents', 
+                     title: { value: 'sales_doc_num' }, description: { value: 'date_created' } } }
+annotate view Z_I_DVPA_Sales_Header_M with
+{
+  @UI.facet: [{ id: 'Header', purpose: #STANDARD, type: #COLLECTION, label: 'Sales Document Details', position: 10 },
+              { parentId: 'Header', type: #FIELDGROUP_REFERENCE, position: 10, targetQualifier: 'BasicInfo' },
+              { parentId: 'Header', type: #FIELDGROUP_REFERENCE, position: 20, targetQualifier: 'DetailInfo' },
+              { id: 'Item', purpose: #STANDARD, type: #LINEITEM_REFERENCE, label: 'Sales Order Item', position: 20, targetElement: '_SD_Item_M' }]
+
+  @UI:{ lineItem: [{ position: 10, label: 'Number', importance: #HIGH }],
+        fieldGroup: [{ qualifier: 'BasicInfo', position: 10, label: 'Document', importance: #HIGH }] }
+  sales_doc_num;
+  @UI:{ lineItem: [{ position: 20, label: 'Date Created', importance: #HIGH }],
+        fieldGroup: [{ qualifier: 'BasicInfo', position: 20, label: 'Date Created',importance: #HIGH }] }
+  date_created;
+  @UI:{ lineItem: [{ position: 30, label: 'Created By', importance: #HIGH }],
+        fieldGroup: [{ qualifier: 'BasicInfo', position: 30, label: 'Created By', importance: #HIGH }] }
+  person_created;
+  @UI:{ lineItem: [{ position: 40, label: 'Total', importance: #HIGH }],
+        fieldGroup: [{ qualifier: 'BasicInfo', position: 40, label: 'Total', importance: #HIGH }] }
+  total_cost;
+  @UI:{ lineItem: [{ position: 50, label: 'Block Status', importance: #HIGH }],
+        fieldGroup: [{ qualifier: 'BasicInfo', position: 50, label: 'Block Status', importance: #HIGH }] }
+  block_status;
+  @UI:{ lineItem: [{ position: 60, label: 'Organ.', importance: #MEDIUM }],
+        fieldGroup: [{ qualifier: 'DetailInfo', position: 10, label: 'Organ.', importance: #MEDIUM }] }
+
+  sales_org;
+  @UI:{ lineItem: [{ position: 70, label: 'Dist.Chan.', importance: #MEDIUM }],
+        fieldGroup: [{ qualifier: 'DetailInfo', position: 20, label: 'Dist.Chan.', importance: #MEDIUM }] }
+  sales_dist;
+  @UI:{ lineItem: [{ position: 80, label: 'Div.', importance: #MEDIUM }],
+        fieldGroup: [{ qualifier: 'DetailInfo', position: 30, label: 'Div.', importance: #MEDIUM }] }
+  sales_div;
+  // last_changed;
+  // /* Associations */
+  // _SD_Item_M;
+}
