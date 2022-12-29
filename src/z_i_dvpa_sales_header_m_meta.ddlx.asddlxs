@@ -21,9 +21,11 @@ annotate view Z_I_DVPA_Sales_Header_M with
   @UI:{ lineItem: [{ position: 40, label: 'Total', importance: #HIGH }],
         fieldGroup: [{ qualifier: 'BasicInfo', position: 40, label: 'Total', importance: #HIGH }] }
   total_cost;
-  @UI:{ lineItem: [{ position: 50, label: 'Block Status', importance: #HIGH }],
+  @UI:{ lineItem: [{ position: 50, label: 'Block Status', importance: #HIGH },
+                   { type: #FOR_ACTION, dataAction: 'blockOrder', label: 'Block' },
+                   { type: #FOR_ACTION, dataAction: 'unblockOrder', label: 'Unblock' }],
         fieldGroup: [{ qualifier: 'BasicInfo', position: 50, label: 'Block Status', importance: #HIGH }] }
-  block_status;
+  block_status_msg;
   @UI:{ lineItem: [{ position: 60, label: 'Organ.', importance: #MEDIUM }],
         fieldGroup: [{ qualifier: 'DetailInfo', position: 10, label: 'Organ.', importance: #MEDIUM }] }
 

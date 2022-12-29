@@ -18,6 +18,11 @@ define root view Z_I_DVPA_Sales_Header_M
       total_cost,
       cost_currency,
       block_status,
+      case block_status
+        when '' then 'OK'
+        when '99' then 'Approval Needed'
+        else 'Blocked'
+      end as block_status_msg,        
       last_changed,
 //      /* Associations */
 //      _SD_Item

@@ -1,0 +1,60 @@
+managed;
+//strict ( 1 ); //Uncomment this line in order to enable strict mode 2. The strict mode has two variants (strict(1), strict(2)) and is prerequisite to be future proof regarding syntax and to be able to release your BO.
+
+define behavior for Z_I_DVPA_Sales_Header_M alias DVPA_SOHeadM
+implementation in class zbp_i_dvpa_sales_header_m unique
+persistent table zdvpa_vbak
+lock master
+// authorization master ( instance )
+//etag master <field_name>
+{
+  create;
+  update;
+  delete;
+  association _SD_Item_M { create; }
+
+  mapping for zdvpa_vbak control Z_I_DVPA_Sales_Header_M corresponding
+  {
+    sales_doc_num = vbeln;
+    date_created = erdat;
+    person_created = ernam;
+    sales_org = vkorg;
+    sales_dist = vtweg;
+    sales_div = spart;
+    total_cost = netwr;
+    cost_currency = waerk;
+    block_status = faksk;
+    last_changed = last_changed_timestamp;
+  }
+
+  action blockOrder result[1] $self;
+  action unblockOrder result[1] $self;
+
+}
+
+define behavior for Z_I_DVPA_Sales_Item_M alias DVPA_SOItemM
+persistent table zdvpa_vbap
+lock dependent by _SD_Head_M
+// authorization dependent by _SD_Head_M
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly ) sales_doc_num;
+  association _SD_Head_M;
+
+  mapping for zdvpa_vbap control Z_I_DVPA_Sales_Item_M corresponding
+  {
+    sales_doc_num = vbeln;
+    item_position = posnr;
+    mat_num = matnr;
+    mat_desc = arktx;
+    unit_cost = netpr;
+    total_item_cost = netwr;
+    cost_currency = waerk;
+    quantity = kpein;
+    unit = kmein;
+    last_changed = last_changed_timestamp;
+  }
+
+}
