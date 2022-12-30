@@ -1,6 +1,6 @@
 @Metadata.layer: #CORE
 
-@UI: { headerInfo: { typeName: 'Sales Document', typeNamePlural: 'Sales Documents', 
+@UI: { headerInfo: { typeName: 'Sales Document', typeNamePlural: 'Sales Documents',
                      title: { value: 'sales_doc_num' }, description: { value: 'date_created' } } }
 annotate view Z_I_DVPA_Sales_Header_M with
 {

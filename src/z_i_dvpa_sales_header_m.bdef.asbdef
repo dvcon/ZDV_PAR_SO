@@ -9,9 +9,10 @@ lock master
 //etag master <field_name>
 {
   create;
-  update;
-  delete;
-  association _SD_Item_M { create; }
+  update ( features : instance );
+  delete ( features : instance );
+  field ( readonly ) sales_doc_num;
+  association _SD_Item_M { create ( features : instance ); }
 
   mapping for zdvpa_vbak control Z_I_DVPA_Sales_Header_M corresponding
   {
@@ -27,8 +28,8 @@ lock master
     last_changed = last_changed_timestamp;
   }
 
-  action blockOrder result[1] $self;
-  action unblockOrder result[1] $self;
+  action blockOrder result [1] $self;
+  action unblockOrder result [1] $self;
 
 }
 

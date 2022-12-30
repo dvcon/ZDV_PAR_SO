@@ -7,6 +7,9 @@ CLASS lhc_DVPA_SOHeadM DEFINITION INHERITING FROM cl_abap_behavior_handler.
     METHODS unblockOrder FOR MODIFY
       IMPORTING keys FOR ACTION DVPA_SOHeadM~unblockOrder RESULT result.
 
+    METHODS get_instance_features FOR INSTANCE FEATURES
+      IMPORTING keys REQUEST requested_features FOR DVPA_SOHeadM RESULT result.
+
 ENDCLASS.
 
 CLASS lhc_DVPA_SOHeadM IMPLEMENTATION.
@@ -57,6 +60,24 @@ CLASS lhc_DVPA_SOHeadM IMPLEMENTATION.
                       ( sales_doc_num = ls_result-sales_doc_num
                         %param-sales_doc_num = ls_result-sales_doc_num
                         %param-block_status = ls_result-block_status ) ).
+
+  ENDMETHOD.
+
+  METHOD get_instance_features.
+
+    READ ENTITY Z_I_DVPA_Sales_Header_M
+         ALL FIELDS
+         WITH VALUE #( FOR ls_key IN keys ( sales_doc_num = ls_key-sales_doc_num ) )
+         RESULT DATA(lt_result).
+
+    result = VALUE #( FOR ls_result IN lt_result
+                      ( %tky = ls_result-sales_doc_num
+                        %update = COND #( WHEN ls_result-block_status = '' THEN if_abap_behv=>fc-f-unrestricted
+                                          ELSE if_abap_behv=>fc-f-read_only )
+                        %delete = COND #( WHEN ls_result-block_status = '' THEN if_abap_behv=>fc-o-enabled
+                                          ELSE if_abap_behv=>fc-o-disabled )
+                        %assoc-_SD_Item_M = COND #( WHEN ls_result-block_status = '' THEN if_abap_behv=>fc-o-enabled
+                                                    ELSE if_abap_behv=>fc-o-disabled ) ) ).
 
   ENDMETHOD.
 
