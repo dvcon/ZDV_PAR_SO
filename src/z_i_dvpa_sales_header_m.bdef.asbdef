@@ -7,12 +7,12 @@ implementation in class zbp_i_dvpa_sales_header_m unique
 persistent table zdvpa_vbak
 lock master
 // authorization master ( instance )
-//etag master <field_name>
+etag master last_changed
 {
   create;
   update ( features : instance );
   delete ( features : instance );
-  field ( readonly ) sales_doc_num;
+  field ( mandatory : create ) sales_doc_num;
   association _SD_Item_M { create ( features : instance ); }
 
   mapping for zdvpa_vbak control Z_I_DVPA_Sales_Header_M corresponding
@@ -38,11 +38,12 @@ define behavior for Z_I_DVPA_Sales_Item_M alias DVPA_SOItemM
 persistent table zdvpa_vbap
 lock dependent by _SD_Head_M
 // authorization dependent by _SD_Head_M
-//etag master <field_name>
+etag master last_changed
 {
   update;
   delete;
   field ( readonly ) sales_doc_num;
+  field ( mandatory : create ) item_position;
   association _SD_Head_M;
 
   mapping for zdvpa_vbap control Z_I_DVPA_Sales_Item_M corresponding
