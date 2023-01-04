@@ -3,6 +3,7 @@ managed;
 
 define behavior for Z_I_DVPA_Sales_Header_M alias DVPA_SOHeadM
 implementation in class zbp_i_dvpa_sales_header_m unique
+//with additional save
 persistent table zdvpa_vbak
 lock master
 // authorization master ( instance )
